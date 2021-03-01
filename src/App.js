@@ -71,7 +71,7 @@ const ScoreCell = ({ children, style = {}, ...rest }) => (
 const App = () => {
   const secondValues = [
     { value: 30, name: "30 წამი" },
-    { value: 60, name: "1 წუთი", defaultValue: true },
+    { value: 6, name: "1 წუთი", defaultValue: true },
     { value: 90, name: "1 წუთი და 30 წამი" },
     { value: 120, name: "2 წუთი" },
   ]
@@ -105,7 +105,7 @@ const App = () => {
   const [afterTurnActionsHappened, setAfterTurnActionsHappened] = useState(false)
   const [timerId, setTimerId] = useState(null)
 
-  const getRandomWord = () => words[Math.floor(Math.random() * words.length)];
+  const getRandomWord = () => words[Math.floor(Math.random() * words.length)]
 
   const goToStart = () => {
     clearInterval(timerId)
@@ -471,7 +471,7 @@ const App = () => {
                     </ScoreCell>
                   </div>
 
-                  {firstScoreHistory.map((currentScore, index) => (
+                  {(firstScoreHistory).map((currentScore, index) => (
                     <div
                       key={index}
                       style={{
