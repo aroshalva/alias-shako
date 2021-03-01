@@ -71,7 +71,7 @@ const ScoreCell = ({ children, style = {}, ...rest }) => (
 const App = () => {
   const secondValues = [
     { value: 30, name: "30 წამი" },
-    { value: 6, name: "1 წუთი", defaultValue: true },
+    { value: 60, name: "1 წუთი", defaultValue: true },
     { value: 90, name: "1 წუთი და 30 წამი" },
     { value: 120, name: "2 წუთი" },
   ]
@@ -110,8 +110,6 @@ const App = () => {
   const goToStart = () => {
     clearInterval(timerId)
 
-    console.log(333, timerId)
-
     setSettingsOpen(false)
 
     setGameStarted(false)
@@ -148,17 +146,17 @@ const App = () => {
 
     setGameStarted(true)
 
-    setTimerId(
-      setInterval(() => {
-        setTimeLeft(currentTimeLeft => {
-          if (currentTimeLeft === 1) {
-            clearInterval(timerId)
-          }
+    const newTimerId = setInterval(() => {
+      setTimeLeft(currentTimeLeft => {
+        if (currentTimeLeft === 1) {
+          clearInterval(newTimerId)
+        }
 
-          return currentTimeLeft - 1
-        })
-      }, 1000)
-    )
+        return currentTimeLeft - 1
+      })
+    }, 1000)
+
+    setTimerId(newTimerId)
   }
 
   useEffect(
@@ -174,8 +172,6 @@ const App = () => {
         ]
 
         ;(firstsTurn ? setFirstScoreHistory : setSecondScoreHistory)(newScoreHistory);
-
-        console.log(999, sumArray(newScoreHistory))
 
         if (sumArray(newScoreHistory) >= scoreToWin) {
           setWinnerTeam(firstsTurn ? firstName : secondName)
@@ -393,9 +389,13 @@ const App = () => {
                   >
                     <div
                       style={{
-                        fontSize: "20px",
-                        marginBottom: "25px",
+                        fontSize: "22px",
                         display: "flex",
+                        padding: "18px",
+                        boxShadow: "-5px -5px 30px 5px red, 5px 5px 30px 5px blue",
+                        borderRadius: "10px",
+                        marginBottom: "65px",
+                        marginTop: "30px",
                       }}
                     >
                       მოგებული: <div style={{ fontWeight: "bold", marginLeft: "6px" }}>{winnerTeam}</div>
